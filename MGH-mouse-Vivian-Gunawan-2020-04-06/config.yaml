@@ -1,0 +1,68 @@
+# Project definitions (do not edit)
+Task: MGH-mouse
+scorer: Vivian-Gunawan
+date: Apr6
+
+# Project path (change when moving around)
+project_path: /content/drive/My Drive/CS 585 Final Project/MGH-mouse-Vivian-Gunawan-2020-04-06
+
+# Annotation data set configuration (and individual video cropping parameters)
+video_sets:
+  ? /content/drive/My Drive/CS 585 Final Project/MGH-mouse-Vivian-Gunawan-2020-04-06/videos/pursuit-14_days_post_TN_C57-5-1.mp4
+  : crop: 0, 1280, 0, 720
+  ? /content/drive/My Drive/CS 585 Final Project/MGH-mouse-Vivian-Gunawan-2020-04-06/videos/pursuit-14_days_post_TN_C57-5-2.mp4
+  : crop: 0, 1280, 0, 720
+  ? /content/drive/My Drive/CS 585 Final Project/MGH-mouse-Vivian-Gunawan-2020-04-06/videos/pursuit-14_days_post_TN_C57-5-3.mp4
+  : crop: 0, 1280, 0, 720
+  ? /content/drive/My Drive/CS 585 Final Project/MGH-mouse-Vivian-Gunawan-2020-04-06/videos/pursuit-14_days_post_TN_C57-5-4.mp4
+  : crop: 0, 1280, 0, 720
+  ? /content/drive/My Drive/CS 585 Final Project/MGH-mouse-Vivian-Gunawan-2020-04-06/videos/pursuit-14_days_post_TN_C57-5-5.mp4
+  : crop: 0, 1280, 0, 720
+  ? /content/drive/My Drive/CS 585 Final Project/MGH-mouse-Vivian-Gunawan-2020-04-06/videos/pursuit-14_days_post_TN_C57-5-6.mp4
+  : crop: 0, 1280, 0, 720
+bodyparts:
+- snout
+- tailbase
+- leftear
+- rightear
+start: 0
+stop: 1
+numframes2pick: 20
+
+# Plotting configuration
+skeleton:
+- - leftear
+  - snout
+- - rightear
+  - snout
+- - snout
+  - tailbase
+skeleton_color: red
+pcutoff: 0.6
+dotsize: 12
+alphavalue: 0.7
+colormap: jet
+
+# Training,Evaluation and Analysis configuration
+TrainingFraction:
+- 0.95
+iteration: 0
+resnet:
+snapshotindex: -1
+batch_size: 8
+
+# Cropping Parameters (for analysis and outlier frame detection)
+cropping: false
+#if cropping is true for analysis, then set the values here:
+x1: 0
+x2: 640
+y1: 277
+y2: 624
+
+# Refinement configuration (parameters from annotation dataset configuration also relevant in this stage)
+corner2move2:
+- 50
+- 50
+move2corner: true
+default_net_type: resnet_50
+default_augmenter: default
