@@ -1,37 +1,189 @@
-
 <html>
+
 <head>
-<title> Computer Vision to Support Neuroscience  </title>
-<style>
-<!--
-body{
-font-family: 'Trebuchet MS', Verdana;
-}
-p{
-font-family: 'Trebuchet MS', Times;
-margin: 10px 10px 15px 20px;
-}
-h3{
-margin: 5px;
-}
-h2{
-margin: 10px;
-}
-h1{
-margin: 10px 0px 0px 20px;
-}
-div.main-body{
-align:center;
-margin: 30px;
-}
-hr{
-margin:20px 0px 20px 0px;
-}
--->
-</style>
+	<title> Computer Vision to Support Neuroscience </title>
+	<style>
+		<!--
+		body {
+			font-family: 'Trebuchet MS', Verdana;
+		}
+
+		p {
+			font-family: 'Trebuchet MS', Times;
+			margin: 10px 10px 15px 20px;
+		}
+
+		h3 {
+			margin: 5px;
+		}
+
+		h2 {
+			margin: 10px;
+		}
+
+		h1 {
+			margin: 10px 0px 0px 20px;
+		}
+
+		div.main-body {
+			align: center;
+			margin: 30px;
+		}
+
+		hr {
+			margin: 20px 0px 20px 0px;
+		}
+		-->
+	</style>
 </head>
 
 <body>
+<<<<<<< HEAD
+	<center>
+		<a href="http://www.bu.edu"><img border="0" src="http://www.cs.bu.edu/fac/betke/images/bu-logo.gif" width="119"
+				height="120"></a>
+	</center>
+
+	<h1>Computer Vision to Support Neuroscience </h1>
+	<p>
+		CS 585 Final Project <br>
+		Vivian Gunawan, Yaan Tzi Kan, Beatrice Tanaga <br>
+		Spring 2020 <br>
+	</p>
+
+	<div class="main-body">
+
+		<hr>
+		<h2>Background </h2>
+		<p>
+			Mouse behavioral studies are often conducted in the field of neuroscience to evaluate traits such as
+			sensory-motor function, social interactions, anxiety-like and depressive like behavior, substance dependence
+			and various forms of cognitive function. </p>
+		<p>
+			Traditionally, the analysisis performed manually through annotation of landmark regions (snout, ears and
+			tailbase) of the mouse and interpreting the results. An anxious mouse is considered to be a mouse that
+			explores less and intitiates less social interaction.
+		</p>
+
+		<hr>
+		<h2>Data</h2>
+		<p>
+			A 30 minute footage of two mice in a "shoebox" cage is provided. The mice are suspected to be filial pairs
+			since no aggresive or sexual behaviour is observed within the footage.
+		</p>
+		<p>
+			From the footage, the mice with the stripped tail is suspected to be less anxious based on its behavior.
+		</p>
+		"TODO INSERT SAMPLE FRAME"
+
+		<hr>
+		<h2>Problem Definition</h2>
+		<p>
+			Our goal is to improve upon efficiency within neuroscience research by automating the analysis of the
+			footage. This first involves implementing algorithms that track landmark regions of the mice. Followed by
+			interpreting the tracked landmark regionis meaningfully. Through doing so, we believe we could reduce human
+			error and conflicts in data analysis.
+		</p>
+		<p>
+			Similar previous work has been done within this domain of research. Such as “Computerized video analysis of
+			social interactions in mice" by Fabrice deChaumont et al in 2012 and “An unsupervised learning approach for
+			tracking mice in an enclosed area” by Jakob Under, et al in 2017. Fabrice's implementation uses geometrical
+			primitives to model and track two mice without requiring any specific tagging. While Jakob's implemetation
+			is basically built as a two-stage process to track mice in an enclosed area using shape matching and
+			deformable segmentation models. Despite Jakob's unsupervised learning approach achieveing a high level of
+			tracking accuracy and outperforming Fabrice's approach, we were curious if we could combine both unspervised
+			learning and a more traditional approach to create a more robust analysis system.
+		</p>
+
+		<hr>
+		<h2>Methodology</h2>
+		<h3>Tracking of Landmark Region</h3>
+		<p>
+			To track the landmark regions of the mice, we used Alaxander Mathis' DeeplabCut animal pose estimation
+			software. This involves manually annotating selected frames from the video. The frames were selected by K
+			means clustering to ensure they are randomly and temporally distributed based on visual apperance. The
+			unlabbeled frames are then labelled by a pre-trained ResNet 50 through transfer learning. As DeepLabCut, at
+			the time of the project, doesn't support multi-animal tracking, tracking was done seperately for each mice
+			in the footage.
+		</p>
+		<h3>Attaining Mouse Trajectories</h3>
+		<p>
+			Ater attaining the tracked landmark regions, getting the trajectory to analyze the level of mouse
+			exploration is trivially done just by plotting the coordinates.
+		</p>
+		<h3>Analysis of Mouse Interactions</h3>
+		<p>
+			To analyze which mice initiates more interaction than the other, we developed our own algorithm. The
+			algorithm works firstly by detecting an interaction, then back tracking frames previous to interaction to
+			determine which mouse initiated the interaction.<br>
+			The interaction detection works by "TO DO: YAAN FILL THIS PART OUT PLEASE...mention how it essentially
+			generates a bounding 'interaction region'"<br>
+		</p>
+		TODO ADD PICTURES<br>
+		<p>
+			Upon back tracking the mice that is not within the 'interaction region' first is taken as the mice that
+			initiates the interaction. <br>
+		</p>
+		<p>
+			The 30 minute footage was also broken down into six 5 minute footages for the ease of computation.
+		</p>
+
+		<hr>
+		<h2>Results</h2>
+		<p>
+			The mouse trajectory as seen below is in line with the data that the stripped tail mice explore more region
+			within the space compared to the plain tail mice. The stripped tail mice is suspected to be less anxious.
+		</p>
+		TODO: "INSERT TABLE SHOWING MOUSE TRAJECTORY RESULTS"
+		<p>
+			Below are exmaple of interactions that our algorithm detected.
+		</p>
+		TODO: "INSERT MOUSE INTERACTION GIF EXAMPLES"
+		<p>
+			The results of our algorithm for the 30 minute footage detected 177 interactions in total. In which 149 was
+			initiated by the striped tail mouse, as opposed to only 28 initiated by the plain tail mouse. This again
+			aligns with the data.
+		</p>
+		TODO "INSERT SCREENSHOT OF TABLE"
+
+		<hr>
+		<h2>Discussion</h2>
+		<p>
+			Due the tracking being done seperately, there are occasion where the tracked region is detected on the other
+			mice. This impacts the result of our algorithm in analyzing interactions. More specifically it detects a
+			collision when the a specific landmark region of one mice is wrongly placed ont the other mouse.<br>
+			Due to time constraints we weren't able to resolve this issue however we believe that a few different
+			approaches could help. "TODO YAAN please write about the approaches"
+		</p>
+
+
+		<hr>
+		<h2> Credits and Bibliography </h2>
+		<h3> Credits </h3>
+		<p>
+			Vivian Gunawan implemented mice tracking on stripped tail mice using DeepLabCut. She also helped with the
+			interaction analysis algorithm. Her background knowledge as a neuroscience major help to understand how to
+			interpret the data.
+		</p>
+		<p>
+			Yaan Tzi Kan created and implemented the interaction analysis algorithm.
+		</p>
+		<p>
+			Beatrice Tanaga implemeted tracking of landmark regions on plain tail mice using DeepLabCut.
+		</p>
+		<p>
+			Report and Presentation was done collaboratively as a group.
+		</p>
+		<h3>Bibiliography</h3>
+		<p>
+			"TODO ADD LINKS AND FORMAT https://www.nature.com/articles/nmeth.1924"<br>
+			"TODO ADD LINKS AND FORMAT
+			https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1681-1"<br>
+			"TODO CREDIT DEEP LAB CUT"
+		</p>
+
+</html>
+=======
 <center>
 <a href="http://www.bu.edu"><img border="0" src="http://www.cs.bu.edu/fac/betke/images/bu-logo.gif"
 width="119" height="120"></a>
@@ -48,96 +200,34 @@ width="119" height="120"></a>
 
 <hr>
 <h2>Background </h2>
-<p>
-	Mouse behavioral studies are often conducted in the field of neuroscience to evaluate traits such as sensory-motor function, social interactions, anxiety-like and depressive like behavior, substance dependence and various forms of cognitive function. </p>
-<p>
-	Traditionally, the analysisis performed manually through annotation of landmark regions (snout, ears and tailbase) of the mouse and interpreting the results. An anxious mouse is considered to be a mouse that explores less and intitiates less social interaction.
-</p>
+<p></p>
 
 <hr>
 <h2>Data</h2>
-<p>
-	A 30 minute footage of two mice in a "shoebox" cage is provided. The mice are suspected to be filial pairs since no aggresive or sexual behaviour is observed within the footage.
-</p>
-<p>
-	From the footage, the mice with the stripped tail is suspected to  be less anxious based on its behavior.
-</p>
-	"TODO INSERT SAMPLE FRAME"
+<p></p>
 
 <hr>
 <h2>Problem Definition</h2>
-<p>
-	Our goal is to improve upon efficiency within neuroscience research by automating the analysis of the footage. This first involves implementing algorithms that track landmark regions of the mice. Followed by interpreting the tracked landmark regionis meaningfully. Through doing so, we believe we could reduce human error and conflicts in data analysis.
-</p>
-<p>
-	Similar previous work has been done within this domain of research. Such as “Computerized video analysis of social interactions in mice" by Fabrice deChaumont et al in 2012 and “An unsupervised learning approach for tracking mice in an enclosed area” by Jakob Under, et al in 2017. Fabrice's implementation uses geometrical primitives to model and track two mice without requiring any specific tagging. While Jakob's implemetation is basically built as a two-stage process to track mice in an enclosed area using shape matching and deformable segmentation models. Despite Jakob's unsupervised learning approach achieveing a high level of tracking accuracy and outperforming Fabrice's approach, we were curious if we could combine both unspervised learning and a more traditional approach to create a more robust analysis system.
-</p>
+<p></p>
 
 <hr>
 <h2>Methodology</h2>
-<h3>Tracking of Landmark Region</h3>
-<p>
-	To track the landmark regions of the mice, we used Alaxander Mathis' DeeplabCut animal pose estimation software. This involves manually annotating selected frames from the video. The frames were selected by K means clustering to ensure they are randomly and temporally distributed based on visual apperance. The unlabbeled frames are then labelled by a pre-trained ResNet 50 through transfer learning. As DeepLabCut, at the time of the project, doesn't support multi-animal tracking, tracking was done seperately for each mice in the footage.
-</p>
-<h3>Attaining Mouse Trajectories</h3>
-<p>
-	Ater attaining the tracked landmark regions, getting the trajectory to analyze the level of mouse exploration is trivially done just by plotting the coordinates.
-</p>
-<h3>Analysis of Mouse Interactions</h3>
-<p>
-	To analyze which mice initiates more interaction than the other, we developed our own algorithm. The algorithm works firstly by detecting an interaction, then back tracking frames previous to interaction to determine which mouse initiated the interaction.<br>
-	The interaction detection works by "TO DO: YAAN FILL THIS PART OUT PLEASE...mention how it essentially generates a bounding 'interaction region'"<br>
-</p>
-	TODO ADD PICTURES<br>
-<p>
-	Upon back tracking the mice that is not within the 'interaction region' first is taken as the mice that initiates the interaction. <br>
-</p>
-<p>
-	The 30 minute footage was also broken down into six 5 minute footages for the ease of computation.
-</p>
+<p></p>
 
 <hr>
 <h2>Results</h2>
-<p>
-	The mouse trajectory as seen below is in line with the data that the stripped tail mice explore more region within the space compared to the plain tail mice. The stripped tail mice is suspected to be less anxious.
-</p>
-	TODO: "INSERT TABLE SHOWING MOUSE TRAJECTORY RESULTS"
-<p>
-	Below are exmaple of interactions that our algorithm detected.
-</p>
-	TODO: "INSERT MOUSE INTERACTION GIF EXAMPLES"
-<p>
-	The results of our algorithm for the 30 minute footage detected 177 interactions in total. In which 149 was initiated by the striped tail mouse, as opposed to only 28 initiated by the plain tail mouse. This again aligns with the data.
-</p>
-	TODO "INSERT SCREENSHOT OF TABLE"
+<p></p>
 
 <hr>
 <h2>Discussion</h2>
-<p>
-	Due the tracking being done seperately, there are occasion where the tracked region is detected on the other mice. This impacts the result of our algorithm in analyzing interactions. More specifically it detects a collision when the a specific landmark region of one mice is wrongly placed ont the other mouse.<br>
-	Due to time constraints we weren't able to resolve this issue however we believe that a few different approaches could help. "TODO YAAN please write about the approaches"
-</p>
+<p></p>
 
+<hr>
+<h2> Discussion </h2>
+<p></p>
 
 <hr>
 <h2> Credits and Bibliography </h2>
-<h3> Credits </h3>
-<p>
-	Vivian Gunawan implemented mice tracking on stripped tail mice using DeepLabCut. She also helped with the interaction analysis algorithm. Her background knowledge as a neuroscience major help to understand how to interpret the data.
-</p>
-<p>
-	Yaan Tzi Kan created and implemented the interaction analysis algorithm.
-</p>
-<p>
-	Beatrice Tanaga implemeted tracking of landmark regions on plain tail mice using DeepLabCut.
-</p>
-<p>
-	Report and Presentation was done collaboratively as a group.
-</p>
-<h3>Bibiliography</h3>
-<p>
-	"TODO ADD LINKS AND FORMAT https://www.nature.com/articles/nmeth.1924"<br>
-	"TODO ADD LINKS AND FORMAT https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1681-1"<br>
-	"TODO CREDIT DEEP LAB CUT"
-</p>
+<p> </p>
 </html>
+>>>>>>> parent of 3462bb34... Update FinalReport.html

@@ -8,13 +8,13 @@ import cv2
 import math
 from collections import namedtuple
 from scipy.spatial import distance
-import pandas as pd
+
 deeplabcut.utils.plotting.PlottingResults
 
 #put video paths here!
-videopaths =[]
+videopaths =["pursuit-14_days_post_TN_C57-5-1.mp4", "pursuit-14_days_post_TN_C57-5-2.mp4", "pursuit-14_days_post_TN_C57-5-3.mp4", "pursuit-14_days_post_TN_C57-5-4.mp4","pursuit-14_days_post_TN_C57-5-5.mp4"]
 #CSV save paths/filenames here
-savenames =[]
+savenames =["results/csv/collision1.csv", "results/csv/collision2.csv", "results/csv/collision3.csv", "results/csv/collision4.csv", "results/csv/collision5.csv"]
 
 for i in range (len(videopaths)):
     video = videopaths[i]
@@ -193,19 +193,20 @@ def extract_frames(video, csv_file):
                 cv2.circle(frame, (int(m1[i][0]),int(m1[i][1])), 5, (255,0,0),1)
                 cv2.circle(frame, (int(m2[i][0]),int(m2[i][1])), 5, (0,0,255),1)
             cv2.rectangle(frame,(int(collision_roi[0]),int(collision_roi[1])),(int(collision_roi[0]+collision_roi[2]),int(collision_roi[1]+collision_roi[3])),(0,255,0), 1)
-            cv2.imwrite("frame"+str(framecount)+".jpg", frame )
+            cv2.imwrite("results/frames/frame"+str(framecount)+".jpg", frame )
             entrycount +=1
             nextframe = collisions.iloc[entrycount]
         # since video is 30fps we want to extract 3 secondswe extract 90 frames leading up to the target frame.
-        elif (nextframe["Frame"] - framecount < 90):
-            m1 = getpoints(dfJerry[DLCscorer_Jerry].iloc[framecount])
-            m2 = getpoints(dfMickey[DLCscorer_Mickey].iloc[framecount])
+        # UNCOMMENT THIS BLOCK IF YOU WANT TO EXTRACT MORE FRAMES THAN THE COLLISION FRAME 
+        # elif (nextframe["Frame"] - framecount < 90):
+        #     m1 = getpoints(dfJerry[DLCscorer_Jerry].iloc[framecount])
+        #     m2 = getpoints(dfMickey[DLCscorer_Mickey].iloc[framecount])
             
-            distances = get_distances(m1,m2)
-            for i in range(len(m1)):
-                cv2.circle(frame, (int(m1[i][0]),int(m1[i][1])), 5, (255,0,0),2)
-                cv2.circle(frame, (int(m2[i][0]),int(m2[i][1])), 5, (0,0,255),2)
-            cv2.imwrite("preframe"+str(framecount)+".jpg",frame)
+        #     distances = get_distances(m1,m2)
+        #     for i in range(len(m1)):
+        #         cv2.circle(frame, (int(m1[i][0]),int(m1[i][1])), 5, (255,0,0),2)
+        #         cv2.circle(frame, (int(m2[i][0]),int(m2[i][1])), 5, (0,0,255),2)
+        #     cv2.imwrite("results/precollision/preframe"+str(framecount)+".jpg",frame)
 
 
 
