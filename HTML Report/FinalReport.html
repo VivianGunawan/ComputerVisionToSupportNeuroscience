@@ -38,7 +38,6 @@
 </head>
 
 <body>
-<<<<<<< HEAD
 	<center>
 		<a href="http://www.bu.edu"><img border="0" src="http://www.cs.bu.edu/fac/betke/images/bu-logo.gif" width="119"
 				height="120"></a>
@@ -72,9 +71,23 @@
 			since no aggresive or sexual behaviour is observed within the footage.
 		</p>
 		<p>
-			From the footage, the mice with the stripped tail is suspected to be less anxious based on its behavior.
+			From the footage, the mice with the stripped tail is suspected to be less anxious based on its behavior. As
+			seen in the frame below,
+			the striped tail mouse is exploring the caged while the other mouse is curled up in a corner.
 		</p>
-		"TODO INSERT SAMPLE FRAME"
+		<table>
+			<tr>
+				<td>Sample Frames</td>
+				<td>Sample Frame 1</td>
+				<td>Sample Frame 2</td>
+			</tr>
+			<tr>
+				<td>Frames</td>
+				<td><img src="sampleframe1.png"></td>
+				<td><img src="sampleframe2.png"></td>
+			</tr>
+		</table>
+
 
 		<hr>
 		<h2>Problem Definition</h2>
@@ -108,7 +121,7 @@
 		</p>
 		<h3>Attaining Mouse Trajectories</h3>
 		<p>
-			Ater attaining the tracked landmark regions, getting the trajectory to analyze the level of mouse
+			After attaining the tracked landmark regions, getting the trajectory to analyze the level of mouse
 			exploration is trivially done just by plotting the coordinates.
 		</p>
 		<h3>Analysis of Mouse Interactions</h3>
@@ -116,10 +129,23 @@
 			To analyze which mice initiates more interaction than the other, we developed our own algorithm. The
 			algorithm works firstly by detecting an interaction, then back tracking frames previous to interaction to
 			determine which mouse initiated the interaction.<br>
-			The interaction detection works by "TO DO: YAAN FILL THIS PART OUT PLEASE...mention how it essentially
-			generates a bounding 'interaction region'"<br>
+			For analysis, an interaction as the event when the two mice got into close proximity of each other. For our
+			program,
+			we took this to be when the mice were within ear distance of each other(distance between the left ear and
+			right ear of a mouse).
+			<br>
+			When an interaction was detected, we took the two closest points between the mice and calculated the middle
+			point of these two points.
+			We then found the centroid of the closer mouse and constructed a "collision region". This was a square
+			around the center point using the
+			distance to the closest centroid as the width and height.
+			We then back tracked through the marking data to find the last mouse that entered this collision region. The
+			last mouse to enter this collision
+			region is considered the mouse to have initiated this interaction.
+
+			<br>
 		</p>
-		TODO ADD PICTURES<br>
+
 		<p>
 			Upon back tracking the mice that is not within the 'interaction region' first is taken as the mice that
 			initiates the interaction. <br>
@@ -134,17 +160,53 @@
 			The mouse trajectory as seen below is in line with the data that the stripped tail mice explore more region
 			within the space compared to the plain tail mice. The stripped tail mice is suspected to be less anxious.
 		</p>
-		TODO: "INSERT TABLE SHOWING MOUSE TRAJECTORY RESULTS"
+		<table>
+			<tr>
+				<td>Video Segment</td>
+				<td>Segment 1 (0-5 min)</td>
+				<td>Segment 2 (6-10 min)</td>
+				<td>Segment 3 (11-15 min)</td>
+				<td>Segment 4 (16-20 min)</td>
+				<td>Segment 5 (21-25 min)</td>
+			</tr>
+			<tr>
+				<td>Striped Tail Trajectories</td>
+				<td><img src="TrajectoryCharts/M1_1.png" width="250" height="250"></td>
+				<td><img src="TrajectoryCharts/M1_2.png" width="250" height="250"></td>
+				<td><img src="TrajectoryCharts/M1_3.png" width="250" height="250"></td>
+				<td><img src="TrajectoryCharts/M1_4.png" width="250" height="250"></td>
+				<td><img src="TrajectoryCharts/M1_5.png" width="250" height="250"></td>
+			</tr>
+			<tr>
+				<td>Normal Tail Trajectories</td>
+				<td><img src="TrajectoryCharts/M2_1.png" width="250" height="250"></td>
+				<td><img src="TrajectoryCharts/M2_2.png" width="250" height="250"></td>
+				<td><img src="TrajectoryCharts/M2_3.png" width="250" height="250"></td>
+				<td><img src="TrajectoryCharts/M2_4.png" width="250" height="250"></td>
+				<td><img src="TrajectoryCharts/M2_5.png" width="250" height="250"></td>
+			</tr>
+		</table>
 		<p>
 			Below are exmaple of interactions that our algorithm detected.
 		</p>
-		TODO: "INSERT MOUSE INTERACTION GIF EXAMPLES"
+		<table>
+			<tr>
+				<th>Scenarios</th>
+				<th> Striped Tail mouse approaches</th>
+				<th> Normal Tail mouse approaches</th>
+			</tr>
+			<tr>
+				<th>Frames</th>
+				<th> <img src="mouse1.gif" width="300" height="300"></th>
+				<th> <img src="mouse2.gif" width="300" height="300"></th>
+			</tr>
+		</table><br>
 		<p>
 			The results of our algorithm for the 30 minute footage detected 177 interactions in total. In which 149 was
 			initiated by the striped tail mouse, as opposed to only 28 initiated by the plain tail mouse. This again
 			aligns with the data.
 		</p>
-		TODO "INSERT SCREENSHOT OF TABLE"
+		<img src="table.png" width="1200" height="600">
 
 		<hr>
 		<h2>Discussion</h2>
@@ -153,7 +215,15 @@
 			mice. This impacts the result of our algorithm in analyzing interactions. More specifically it detects a
 			collision when the a specific landmark region of one mice is wrongly placed ont the other mouse.<br>
 			Due to time constraints we weren't able to resolve this issue however we believe that a few different
-			approaches could help. "TODO YAAN please write about the approaches"
+			approaches could help. We also played around with the idea of using a circular collision region. However,
+			this would have been abit more computationally intense and thus we opted for a box-shaped collision region.
+			<br>
+			A contour based approach for the feature detection was also discussed. It might have made collision
+			detection more precised
+			but once again it would be more computationally intense and require other techniques such as image
+			segmenation. DeepLabCut instead
+			provided us with a quick and efficient way getting these features tracked with data created in a organized
+			and easy to processed way.
 		</p>
 
 
@@ -176,58 +246,24 @@
 		</p>
 		<h3>Bibiliography</h3>
 		<p>
-			"TODO ADD LINKS AND FORMAT https://www.nature.com/articles/nmeth.1924"<br>
-			"TODO ADD LINKS AND FORMAT
-			https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1681-1"<br>
-			"TODO CREDIT DEEP LAB CUT"
+			de Chaumont, F., Coura, R., Serreau, P. <i>et al.</i> Computerized video analysis of social interactions in
+			mice. <i>Nat Methods</i>
+			9, 410–417 (2012). https://doi.org/10.1038/nmeth.1924<br>
+			<br>
+			Unger, J., Mansour, M., Kopaczka, M. <i>et al.</i> An unsupervised learning approach for tracking mice in an
+			enclosed area. <i>BMC Bioinformatics</i>
+			18, 272 (2017). https://doi.org/10.1186/s12859-017-1681-1"<br>
+			<br>
+			Mathis, A., Mamidanna, P., Cury, K.M. <i>et al.</i> DeepLabCut: markerless pose estimation of user-defined
+			body parts with deep
+			learning. <i>Nat Neurosci</i> 21, 1281–1289 (2018). https://doi.org/10.1038/s41593-018-0209-y <br>
+			<br>
+			Nath, T., Mathis, A., Chen, A.C. <i>et al.</i> Using DeepLabCut for 3D markerless pose estimation across
+			species and behaviors.
+			<i>Nat Protoc</i> 14, 2152–2176 (2019). https://doi.org/10.1038/s41596-019-0176-0<br>
+			<br>
+			DeeplabCut repository: https://github.com/AlexEMG/DeepLabCut<br>
+
 		</p>
 
 </html>
-=======
-<center>
-<a href="http://www.bu.edu"><img border="0" src="http://www.cs.bu.edu/fac/betke/images/bu-logo.gif"
-width="119" height="120"></a>
-</center>
-
-<h1>Computer Vision to Support Neuroscience </h1>
-<p> 
- CS 585 Final Project <br>
- Vivian Gunawan, Yaan Tzi Kan, Beatrice Tanaga <br>
- Spring 2020 <br>
-</p>
-
-<div class="main-body">
-
-<hr>
-<h2>Background </h2>
-<p></p>
-
-<hr>
-<h2>Data</h2>
-<p></p>
-
-<hr>
-<h2>Problem Definition</h2>
-<p></p>
-
-<hr>
-<h2>Methodology</h2>
-<p></p>
-
-<hr>
-<h2>Results</h2>
-<p></p>
-
-<hr>
-<h2>Discussion</h2>
-<p></p>
-
-<hr>
-<h2> Discussion </h2>
-<p></p>
-
-<hr>
-<h2> Credits and Bibliography </h2>
-<p> </p>
-</html>
->>>>>>> parent of 3462bb34... Update FinalReport.html
