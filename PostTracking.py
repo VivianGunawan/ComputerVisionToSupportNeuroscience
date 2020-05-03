@@ -519,6 +519,48 @@ def get_timeinrois_stats(data, rois, fps=None, returndf=False, check_inroi=True)
 from collections import namedtuple
 
 
+def calc_distance_between_points_in_a_vector_2d(v1):
+    '''calc_distance_between_points_in_a_vector_2d [for each consecutive pair of points, p1-p2, in a vector, get euclidian distance]
+    This function can be used to calculate the velocity in pixel/frame from tracking data (X,Y coordinates)
+    
+    Arguments:
+        v1 {[np.array]} -- [2d array, X,Y position at various timepoints]
+    
+    Raises:
+        ValueError
+    
+    Returns:
+        [np.array] -- [1d array with distance at each timepoint]
+    >>> v1 = [0, 10, 25, 50, 100]
+    >>> d = calc_distance_between_points_in_a_vector_2d(v1)
+    '''
+    # Check data format
+    if isinstance(v1, dict) or not np.any(v1) or v1 is None:
+            raise ValueError(
+                'Feature not implemented: cant handle with data format passed to this function')
+
+    # If pandas series were passed, try to get numpy arrays
+    try:
+        v1, v2 = v1.values, v2.values
+    except:  # all good
+        pass
+    # loop over each pair of points and extract distances
+    dist = []
+    for n, pos in enumerate(v1):
+        # Get a pair of points
+        if n == 0:  # get the position at time 0, velocity is 0
+            p0 = pos
+            dist.append(0)
+        else:
+            p1 = pos  # get position at current frame
+
+            # Calc distance
+            dist.append(np.abs(distance.euclidean(p0, p1)))
+
+            # Prepare for next iteration, current position becomes the old one and repeat
+            p0 = p1
+
+    return np.array(dist)
 
 
 

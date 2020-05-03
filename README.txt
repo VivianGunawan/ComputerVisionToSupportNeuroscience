@@ -14,7 +14,8 @@ dependencies:
 	opencv
 	math
 	scipy
-
+	
+copy video files into the base directory. 
 
 Instructions:
 1. Download this directory to your local machine
