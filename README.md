@@ -12,7 +12,7 @@ Mouse Behavioural studies are often conducted in the field of neuroscience. Typi
 ![trajectory](<HTML Report/trajectory.png>)
 
 ### Mouse Interactions
-Plain Tail Mouse initiates approach | Plain Tail Mouse initiates approach | 
+Striped Tail Mouse initiates approach | Plain Tail Mouse initiates approach | 
 --------------- | --------------- | 
 ![m1](<HTML Report/mouse1.gif>) | ![m2](<HTML Report/mouse2.gif>)
 
